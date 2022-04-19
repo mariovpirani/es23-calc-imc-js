@@ -15,7 +15,6 @@ function Dietician(height, weight, crn) {
     this.calculateImc = function() {
         return this.weight / Math.pow(this.height, 2);
     }
-    console.log(this);
 }
 Dietician.prototype = Object.create(Person.prototype);
 Dietician.prototype.constructor = Dietician;
@@ -36,9 +35,11 @@ Athlete.prototype.constructor = Athlete;
 
 
 function calculateImc() {
-    var dimensoes = new Builder();
-    document.querySelector('#imc').innerHTML = new Dietician(dimensoes.altura, dimensoes.peso, 1234).calculateImc();
-    document.querySelector('#diet').innerHTML = new Athlete(dimensoes.altura, dimensoes.peso, 1234).calculateDiet();
+    return function () {
+        var dimensoes = new Builder();
+        document.querySelector('#imc').innerHTML = new Dietician(dimensoes.altura, dimensoes.peso, 1234).calculateImc();
+        document.querySelector('#diet').innerHTML = new Athlete(dimensoes.altura, dimensoes.peso, 1234).calculateDiet();
+    }
 }
 
 function Builder() {
@@ -51,5 +52,5 @@ function Builder() {
 
 window.onload = function(evt) {
     var btn = document.querySelector(".form button");
-    btn.addEventListener("click", calculateImc);
+    btn.addEventListener("click", calculateImc());
 }
